@@ -1,11 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import 'rbx/index.css';
-import AppBar from '@material-ui/core/Button';
+import Sidebar from "react-sidebar";
 import { Button, Container, Title, Card, Column, Level, Image, Media, Navbar, Dropdown, Icon } from 'rbx';
 // import { fas } from "@fortawesome/free-solid-svg-icons";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-// let picturesLarge = ["100_1", "101_1","876661122392077_1", "5619496040738316_1", "6090484789343891_1", "8552515751438644_1", "9197907543445676_1", "10412368723880252_1", "10547961582846888_1", "10686354557628304_1","11033926921508488_1","11600983276356164_1"]
+
+
+const useViewSidebar = () => {
+  const [visible, setVisibility] = useState(false);
+  const toggle = () => {
+      setVisibility(visible ? /*show Sidebar*/true : /*hide Sidebar*/false)
+      //show and not show sidebar?
+  };
+  return [visible, toggle];
+}
+const useSidebar = () => {
+  const [sidebarItems, setSidebarItems] = useState([]);
+  const editItemsList = (newItem) => {
+    setSidebarItems(sidebarItems.push(newItem)) //adds Item
+    //add, remove item from list?
+  };
+  return [sidebarItems, editItemsList];
+}
+
 const ProductTile = ({img, title, price}) => ( //creates one tile
         <Card width="300px">
           <Card.Image>
@@ -16,7 +34,7 @@ const ProductTile = ({img, title, price}) => ( //creates one tile
           </Card.Image>
           <Card.Content>
             <Media.Item>
-             <Level.Item><Title subtitle={true}>{ title }</Title></Level.Item>
+             <Level.Item><Title subtitle={true} size={6}>{ title }</Title></Level.Item>
               <Level.Item><Title subtitle={true}>{ price }</Title></Level.Item>
             </Media.Item>
           </Card.Content>
@@ -33,7 +51,7 @@ const ProductTable = ({productList}) => (
       {
         let str = "./data/products/" + product.sku + "_1.jpg";
         return (
-        <Column key={ product.sku} size={3}>  {/* change key */}
+        <Column key={ product.sku} size={4}>  {/* change key */}
           <ProductTile key={ product.sku } 
                       img={ str }
                         title={ product.title }
@@ -73,6 +91,7 @@ const PriceFilter = ({}) => (
 const App = () => {
   const [data, setData] = useState({});
   const products = Object.values(data);
+  const [visible, toggle] = useViewSidebar();
   useEffect(() => {
     const fetchProducts = async () => {
       const response = await fetch('./data/products.json');
@@ -87,7 +106,7 @@ const App = () => {
       <Navbar transparent>
         <Navbar.Segment align="end">
           <Navbar.Item>
-              <Title>shopping cart</Title>
+              <Sidebar>Shopping Cart</Sidebar>
           </Navbar.Item> 
         </Navbar.Segment>
       </Navbar>
