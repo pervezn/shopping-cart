@@ -20,21 +20,21 @@ const cartStyle = {
   }
 }
 
-const CartTile = ({img, title, size, desc, quantity, price}) => {
-  <Level>
-    <Card>
-      <Card.Image>
-        <Image.Container>
-          <Image src={ img }/>
-        </Image.Container>
-      </Card.Image>
-    <Title> {title} </Title>
-    <Title subtitle>{ size }</Title><Title subtitle>{ desc }</Title>
-    <Title subtitle>Quantity: { quantity }</Title>
-    <Title subtitle>{price}</Title>
-    </Card>
-  </Level>
-}
+// const CartTile = ({img, title, size, desc, quantity, price}) => {
+//   <Level>
+//     <Card>
+//       <Card.Image>
+//         <Image.Container>
+//           <Image src={ img }/>
+//         </Image.Container>
+//       </Card.Image>
+//     <Title> {title} </Title>
+//     <Title subtitle>{ size }</Title><Title subtitle>{ desc }</Title>
+//     <Title subtitle>Quantity: { quantity }</Title>
+//     <Title subtitle>{price}</Title>
+//     </Card>
+//   </Level>
+// }
 
 const ProductTile = ({img, title, price}) => { //creates one tile
   const [cartList, setCartList] = useState([]);
@@ -54,31 +54,33 @@ const ProductTile = ({img, title, price}) => { //creates one tile
             </Media.Item>
           </Card.Content>
           <Level.Item>
-            <Button size={"medium"} color={"black"} fullwidth={true} onClick={() => {
-              addToCart(title, cartList); 
-              setCartList(cartList)}
-            }>Add to Cart</Button>  
+            <Button size={"medium"} color={"black"} fullwidth={true} 
+            // onClick={() => {
+            //   addToCart(title, cartList); 
+            //   setCartList(cartList)}
+            // }
+            >Add to Cart</Button>  
           </Level.Item>
         </Card>
   );
 };
 
-function addToCart(title, cartList) {
-  let contains = false
-  let index;
-  for(let i = 0; i < cartList.length -1; i++){
-    if(cartList[i][0] === title) {
-      contains = true;
-      index = i;
-    }
-  }
-  if(contains){
-    cartList[index][1]++
-  } else {
-    cartList.push([title, 1]);
-  }
-  return cartList
-}
+// function addToCart(title, cartList) {
+//   let contains = false
+//   let index;
+//   for(let i = 0; i < cartList.length -1; i++){
+//     if(cartList[i][0] === title) {
+//       contains = true;
+//       index = i;
+//     }
+//   }
+//   if(contains){
+//     cartList[index][1]++//incorrect syntax
+//   } else {
+//     const newList = [[title, 1]].concat(cartList);
+//   }
+//   return newList;
+// }
 
 const CartContainer = ({ cartOpen, setCartOpen }) => (
   <Sidebar sidebar={"Hello"}
@@ -88,15 +90,15 @@ const CartContainer = ({ cartOpen, setCartOpen }) => (
            styles={cartStyle}>
     <button style={buttonStyle} onClick={() => {
       setCartOpen(true);
-      cartList.map(item =>  //HOW DO I PASS THE CARTLIST TO HERE?????
-        <CartTile >
-          img= {item.img}
-          title={item.title}
-          size={item.size}
-          desc={item.desc}
-          quantity={item.quantity}
-          price={item.price}
-        </CartTile>)
+      // cartList.map(item =>  //HOW DO I PASS THE CARTLIST TO HERE?????
+      //   <CartTile >
+      //     img= {item.img}
+      //     title={item.title}
+      //     size={item.size}
+      //     desc={item.desc}
+      //     quantity={item.quantity}
+      //     price={item.price}
+      //   </CartTile>)
     }
     }>Cart</button>
   </Sidebar>
